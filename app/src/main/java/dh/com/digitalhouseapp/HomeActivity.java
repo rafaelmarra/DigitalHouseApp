@@ -1,9 +1,13 @@
 package dh.com.digitalhouseapp;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
+import dh.com.digitalhouseapp.fragments.CommentsFragment;
+import dh.com.digitalhouseapp.fragments.PostsFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -11,12 +15,21 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+    }
 
-        Intent intent = getIntent();
+    public void changeFragmentOne(View view) {
+        replaceFragment(new PostsFragment(), R.id.content_one, "POSTS");
+    }
 
+    public void changeFragmentTwo(View view) {
+        replaceFragment(new CommentsFragment(), R.id.content_two, "COMMENTS");
 
-        TextView textView = findViewById(R.id.txtTeste);
-        textView.setText(intent.getExtras().getString("email"));
+    }
 
+    public void replaceFragment(Fragment fragment, int container, String stack) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(container, fragment);
+        transaction.addToBackStack(stack);
+        transaction.commit();
     }
 }

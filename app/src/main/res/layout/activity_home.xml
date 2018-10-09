@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".HomeActivity">
 
-    <TextView
-        android:id="@+id/txtTeste"
+    <FrameLayout
+        android:id="@+id/content_one"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="26sp"/>
+        android:layout_height="200dp" />
 
-</android.support.constraint.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/content_two"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:text="Fragment 1"
+        android:onClick="changeFragmentOne"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:text="Fragment 2"
+        android:onClick="changeFragmentTwo"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:backgroundTint="@color/primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
