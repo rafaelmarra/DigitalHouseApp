@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -32,8 +33,23 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegistra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
-                finish();
+
+                if(textImputName.getEditText().getText().toString().isEmpty()||
+                        textImputEmail.getEditText().getText().toString().isEmpty()||
+                        textImputPassword.getEditText().getText().toString().isEmpty()||
+                        textImputRepeatPassword.getEditText().getText().toString().isEmpty()){
+
+                    Toast.makeText(getApplicationContext(), "Existem campos em branco!", Toast.LENGTH_LONG).show();
+
+                } else if (textImputPassword.getEditText().getText()!= textImputRepeatPassword.getEditText().getText()){
+
+                    Toast.makeText(getApplicationContext(), "As senhas não coincidem!", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    finish();
+                }
             }
         });
 

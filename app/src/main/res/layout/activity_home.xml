@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".HomeActivity">
 
     <FrameLayout
@@ -13,23 +14,8 @@
 
     <FrameLayout
         android:id="@+id/content_two"
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:text="Fragment 1"
-        android:onClick="changeFragmentOne"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <android.support.v7.widget.AppCompatButton
-        android:text="Fragment 2"
-        android:onClick="changeFragmentTwo"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:backgroundTint="@color/primary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
 
 </LinearLayout>

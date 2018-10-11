@@ -8,22 +8,17 @@ import android.view.View;
 
 import dh.com.digitalhouseapp.fragments.CommentsFragment;
 import dh.com.digitalhouseapp.fragments.PostsFragment;
+import dh.com.digitalhouseapp.interfaces.FragmentClick;
+import dh.com.digitalhouseapp.model.Post;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements FragmentClick {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-    }
 
-    public void changeFragmentOne(View view) {
         replaceFragment(new PostsFragment(), R.id.content_one, "POSTS");
-    }
-
-    public void changeFragmentTwo(View view) {
-        replaceFragment(new CommentsFragment(), R.id.content_two, "COMMENTS");
-
     }
 
     public void replaceFragment(Fragment fragment, int container, String stack) {
@@ -31,5 +26,16 @@ public class HomeActivity extends AppCompatActivity {
         transaction.replace(container, fragment);
         transaction.addToBackStack(stack);
         transaction.commit();
+    }
+
+    @Override
+    public void onItemClick(Post post) {
+        Fragment fragment = new CommentsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("TEXT", post.getDescription());
+
+        fragment.setArguments(bundle);
+        replaceFragment(fragment, R.id.content_two, "COMMENTS");
     }
 }
