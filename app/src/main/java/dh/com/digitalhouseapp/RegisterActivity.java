@@ -34,14 +34,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(textImputName.getEditText().getText().toString().isEmpty()||
-                        textImputEmail.getEditText().getText().toString().isEmpty()||
-                        textImputPassword.getEditText().getText().toString().isEmpty()||
-                        textImputRepeatPassword.getEditText().getText().toString().isEmpty()){
+                if (textImputName.getEditText().getText().toString().isEmpty() ||
+                        textImputEmail.getEditText().getText().toString().isEmpty() ||
+                        textImputPassword.getEditText().getText().toString().isEmpty() ||
+                        textImputRepeatPassword.getEditText().getText().toString().isEmpty()) {
 
                     Toast.makeText(getApplicationContext(), "Existem campos em branco!", Toast.LENGTH_LONG).show();
 
-                } else if (textImputPassword.getEditText().getText()!= textImputRepeatPassword.getEditText().getText()){
+                } else if (textImputPassword.getEditText().getText() != textImputRepeatPassword.getEditText().getText()) {
 
                     Toast.makeText(getApplicationContext(), "As senhas não coincidem!", Toast.LENGTH_LONG).show();
 

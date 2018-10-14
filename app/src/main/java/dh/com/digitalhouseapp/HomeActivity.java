@@ -37,6 +37,6 @@ public class HomeActivity extends AppCompatActivity implements FragmentClick {
 
         fragment.setArguments(bundle);
 
-        replaceFragment(new CommentsFragment(), R.id.content_one, "COMMENTS");
+        replaceFragment(fragment, R.id.content_one, "COMMENTS");
     }
 }
