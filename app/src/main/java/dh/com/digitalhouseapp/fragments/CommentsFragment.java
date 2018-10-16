@@ -21,9 +21,9 @@ public class CommentsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_comments, container, false);
         TextView textView = view.findViewById(R.id.txtTitle);
 
-        String message = getArguments().getString("TEXT");
+        /*String message = getArguments().getString("TEXT");
 
-        textView.setText(message);
+        textView.setText(message);*/
 
         return view;
     }

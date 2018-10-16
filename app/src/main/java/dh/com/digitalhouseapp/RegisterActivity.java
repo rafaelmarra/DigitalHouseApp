@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -41,12 +40,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Existem campos em branco!", Toast.LENGTH_LONG).show();
 
-                } else if (textImputPassword.getEditText().getText() != textImputRepeatPassword.getEditText().getText()) {
+                } else if (!(textImputPassword.getEditText().getText().toString().equals(textImputRepeatPassword.getEditText().getText().toString()))) {
 
                     Toast.makeText(getApplicationContext(), "As senhas não coincidem!", Toast.LENGTH_LONG).show();
 
                 } else {
 
+                    Toast.makeText(getApplicationContext(), "Welcome "+textImputName.getEditText().getText().toString()+"!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                     finish();
                 }
