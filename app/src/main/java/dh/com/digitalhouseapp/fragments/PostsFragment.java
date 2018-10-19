@@ -20,6 +20,7 @@ import dh.com.digitalhouseapp.R;
 import dh.com.digitalhouseapp.adapter.RecyclerViewPostAdapter;
 import dh.com.digitalhouseapp.interfaces.FragmentClick;
 import dh.com.digitalhouseapp.model.Post;
+import dh.com.digitalhouseapp.model.dao.PostDAO;
 
 public class PostsFragment extends Fragment implements RecyclerViewPostAdapter.OnCardClickListener{
 
@@ -44,8 +45,10 @@ public class PostsFragment extends Fragment implements RecyclerViewPostAdapter.O
 
         View view = inflater.inflate(R.layout.fragment_posts, container, false);
 
+        PostDAO postDAO = new PostDAO();
+
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_posts_id);
-        recyclerView.setAdapter(new RecyclerViewPostAdapter(createPostList(), this));
+        recyclerView.setAdapter(new RecyclerViewPostAdapter(postDAO.getPosts(getContext()), this));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Button btnSend = view.findViewById(R.id.btn_send);
@@ -61,26 +64,6 @@ public class PostsFragment extends Fragment implements RecyclerViewPostAdapter.O
         return view;
     }
 
-    private List<Post> createPostList(){
-        List<Post> postList = new ArrayList<>();
-
-        Post post1 = new Post();
-        post1.setTitle("Nova turma iniciada!");
-        post1.setDescription("Em setembro iniciamos uma nova turma de Marketing Digital");
-        postList.add(post1);
-
-        Post post2 = new Post();
-        post2.setTitle("Nova turma iniciada!");
-        post2.setDescription("Em outubro iniciamos a nova turma de Full Stack");
-        postList.add(post2);
-
-        Post post3 = new Post();
-        post3.setTitle("Alteração no preço do café!");
-        post3.setDescription("O preço do café foi reajustado!");
-        postList.add(post3);
-
-        return postList;
-    }
 
     @Override
     public void onShareClick(Post post) {

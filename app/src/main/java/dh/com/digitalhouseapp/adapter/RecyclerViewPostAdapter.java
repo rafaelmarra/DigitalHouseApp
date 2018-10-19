@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import dh.com.digitalhouseapp.R;
@@ -52,6 +54,7 @@ public class RecyclerViewPostAdapter extends RecyclerView.Adapter<RecyclerViewPo
         private TextView title;
         private TextView description;
         private ImageView share;
+        private ImageView postImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -59,12 +62,14 @@ public class RecyclerViewPostAdapter extends RecyclerView.Adapter<RecyclerViewPo
             title = itemView.findViewById(R.id.post_item_title_id);
             description = itemView.findViewById(R.id.post_item_description_id);
             share = itemView.findViewById(R.id.image_share_post_id);
+            postImage = itemView.findViewById(R.id.post_item_image_id);
 
         }
 
         public void bind(final Post post){
             title.setText(post.getTitle());
             description.setText(post.getDescription());
+            Picasso.get().load(post.getImageUrl()).into(postImage);
 
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
