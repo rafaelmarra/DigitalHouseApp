@@ -26,8 +26,8 @@ public class PostDAO {
 
         try {
             AssetManager manager = context.getAssets();
-            InputStream newsJson = manager.open("posts.json");
-            BufferedReader bufferReaderIn = new BufferedReader(new InputStreamReader(newsJson));
+            InputStream postsJson = manager.open("posts.json");
+            BufferedReader bufferReaderIn = new BufferedReader(new InputStreamReader(postsJson));
 
             Post[] postArray = gson.fromJson(bufferReaderIn, Post[].class);
 

@@ -26,7 +26,8 @@ public class PostsFragment extends Fragment implements RecyclerViewPostAdapter.O
 
     private FragmentClick listener;
 
-    public PostsFragment(){ }
+    public PostsFragment(){
+    }
 
     @Override
     public void onAttach(Context context) {

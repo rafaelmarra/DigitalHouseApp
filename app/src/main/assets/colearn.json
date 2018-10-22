@@ -1,0 +1,30 @@
+[
+	{
+		"name":"Fausto Silva",
+		"job":"Marketing Digital",
+		"days":"Seg - Qua",
+		"hours":"18:00 - 22:30",
+		"imageUrl":"http://www.diarioonline.com.br/app/painel/modulo-noticia/img/imagensdb/original/destaque-488110-faustao.jpg"
+	},
+	{
+		"name":"Menino Ney",
+		"job":"Mobile",
+		"days":"Seg, Qua e Qui",
+		"hours":"18:00 - 22:30",
+		"imageUrl":"https://guia-static.gazetadopovo.com.br/materias/repositorio/-1530737817-942ec24405848c92a5a38933a38a9f9d.jpeg"
+	},
+	{
+		"name": "Dona Neide",
+		"job": "Full Stack",
+		"days": "Seg - Sex",
+		"hours": "18:00 - 22:30",
+		"imageUrl": "https://www.emaisgoias.com.br/wp-content/uploads/2018/04/gretchen-veja-rio-1024x584.jpg"
+	},
+	{
+		"name":"o || a Pablo",
+		"job":"UX",
+		"days":"Seg - Qui",
+		"hours":"18:00 - 22:30",
+		"imageUrl":"https://www.diariodocentrodomundo.com.br/wp-content/uploads/2018/09/pablo-600x429.jpg"
+	}
+]

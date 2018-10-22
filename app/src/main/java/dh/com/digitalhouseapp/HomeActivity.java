@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dh.com.digitalhouseapp.adapter.SectionsPageAdapter;
+import dh.com.digitalhouseapp.fragments.ColearningFragment;
 import dh.com.digitalhouseapp.fragments.CommentsFragment;
 import dh.com.digitalhouseapp.fragments.PostsFragment;
 import dh.com.digitalhouseapp.interfaces.FragmentClick;
@@ -77,7 +78,7 @@ public class HomeActivity extends AppCompatActivity
 
         fragments.add(new PostsFragment());
         fragments.add(new CommentsFragment());
-        fragments.add(new PostsFragment());
+        fragments.add(new ColearningFragment());
 
         return fragments;
     }
