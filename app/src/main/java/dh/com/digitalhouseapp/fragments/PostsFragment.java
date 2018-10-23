@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +20,15 @@ import java.util.List;
 import dh.com.digitalhouseapp.R;
 import dh.com.digitalhouseapp.adapter.RecyclerViewPostAdapter;
 import dh.com.digitalhouseapp.interfaces.FragmentClick;
+import dh.com.digitalhouseapp.interfaces.ServiceListener;
 import dh.com.digitalhouseapp.model.Post;
 import dh.com.digitalhouseapp.model.dao.PostDAO;
 
-public class PostsFragment extends Fragment implements RecyclerViewPostAdapter.OnCardClickListener{
+public class PostsFragment extends Fragment implements RecyclerViewPostAdapter.OnCardClickListener, ServiceListener {
 
     private FragmentClick listener;
+    private RecyclerViewPostAdapter adapter;
+    private List<Post> posts = new ArrayList<>();
 
     public PostsFragment(){
     }
@@ -48,8 +52,11 @@ public class PostsFragment extends Fragment implements RecyclerViewPostAdapter.O
 
         PostDAO postDAO = new PostDAO();
 
+        adapter = new RecyclerViewPostAdapter(posts, this);
+
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_posts_id);
-        recyclerView.setAdapter(new RecyclerViewPostAdapter(postDAO.getPosts(getContext()), this));
+        recyclerView.setAdapter(adapter);
+        postDAO.getPosts(getContext(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Button btnSend = view.findViewById(R.id.btn_send);
@@ -70,5 +77,16 @@ public class PostsFragment extends Fragment implements RecyclerViewPostAdapter.O
     public void onShareClick(Post post) {
         listener.onItemClick(post);
 
+    }
+
+    @Override
+    public void onSucess(Object object) {
+        posts = (List<Post>) object;
+        adapter.update(posts);
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        Toast.makeText(getContext(), "Error: "+ throwable.getMessage(), Toast.LENGTH_SHORT).show();
     }
 }
