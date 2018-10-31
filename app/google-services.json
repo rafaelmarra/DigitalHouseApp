@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "867045432367",
+    "firebase_url": "https://dhapp-77e68.firebaseio.com",
+    "project_id": "dhapp-77e68",
+    "storage_bucket": "dhapp-77e68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867045432367:android:f6bc70163d26384e",
+        "android_client_info": {
+          "package_name": "dh.com.digitalhouseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867045432367-q19okaetilb7peqv6cfcbm17uls6l1nt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dh.com.digitalhouseapp",
+            "certificate_hash": "564b7404eb4fb658c16279c1a0c4be93b052bdf1"
+          }
+        },
+        {
+          "client_id": "867045432367-0b80au1hes7ksb2341bg4lt09os8mjjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc8unqjEKIDyksOLDsnMG7R6QxolaxY7Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867045432367-0b80au1hes7ksb2341bg4lt09os8mjjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
