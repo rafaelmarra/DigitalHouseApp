@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,31 +27,78 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    private Button buttonLogin;
+    private Button buttonLoginGoogle;
+    private Button buttonLoginFacebook;
+    private TextView register;
+    private TextInputEditText txtEmail;
+    private TextInputEditText txtPassword;
+    private FirebaseAuth firebaseAuth;
+    private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
-    FirebaseAuth firebaseAuth;
-    GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        buttonLogin = findViewById(R.id.buttonLogin);
+        buttonLoginGoogle = findViewById(R.id.buttonLoginGoogle);
+        buttonLoginFacebook = findViewById(R.id.buttonLoginFacebook);
+        register = findViewById(R.id.txtRegister);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtPassword = findViewById(R.id.txtPassword);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
-        Button buttonLogin = findViewById(R.id.buttonLogin);
-        TextView register = findViewById(R.id.txtRegister);
-        final TextInputEditText txtEmail = findViewById(R.id.txtEmail);
-        final TextInputEditText txtPassword = findViewById(R.id.txtPassword);
+        buttonLogin.setOnClickListener((view -> {
+            String email_value = txtEmail.getText().toString();
+            String password_value = txtPassword.getText().toString();
 
-        buttonLogin.setOnClickListener(v -> signIn());
+            if(TextUtils.isEmpty(email_value)){
+                Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(TextUtils.isEmpty(password_value)){
+                Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+           firebaseAuth.signInWithEmailAndPassword(email_value, password_value).addOnCompleteListener((task -> {
+               if(task.isSuccessful()){
+                   startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                   Toast.makeText(getApplicationContext(),"Welcome back!",Toast.LENGTH_SHORT).show();
+                   finish();
+               }
+               else{
+                   Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+               }
+           }));
+        }));
 
-            register.setOnClickListener(view -> {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            });
+        buttonLoginFacebook.setOnClickListener(view -> {Crashlytics.getInstance().crash();});
+
+        register.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
+        });
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(LoginActivity.this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
+
+        buttonLoginGoogle.setOnClickListener(view -> {signIn();});
+
+        if(firebaseAuth.getCurrentUser()!=null){
+            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
         }
+
     }
 
     private void signIn() {
@@ -76,13 +126,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),"Auth Error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(getApplicationContext(),"Connection failure",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
     }
 }

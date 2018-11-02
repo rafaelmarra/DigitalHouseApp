@@ -1,12 +1,13 @@
 package dh.com.digitalhouseapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -14,6 +15,9 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout textImputEmail;
     private TextInputLayout textImputPassword;
     private TextInputLayout textImputRepeatPassword;
+    private Button btnRegistra;
+
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,29 +31,35 @@ public class RegisterActivity extends AppCompatActivity {
         textImputEmail = findViewById(R.id.txtRegisterEmail);
         textImputPassword = findViewById(R.id.txtRegisterPassword);
         textImputRepeatPassword = findViewById(R.id.txtRegisterConfirmPassword);
+        btnRegistra = findViewById(R.id.btnRegistra);
 
-        Button btnRegistra = findViewById(R.id.btnRegistra);
-        btnRegistra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        firebaseAuth = FirebaseAuth.getInstance();
 
-                if (textImputName.getEditText().getText().toString().isEmpty() ||
-                        textImputEmail.getEditText().getText().toString().isEmpty() ||
-                        textImputPassword.getEditText().getText().toString().isEmpty() ||
-                        textImputRepeatPassword.getEditText().getText().toString().isEmpty()) {
+        btnRegistra.setOnClickListener(v -> {
 
-                    Toast.makeText(getApplicationContext(), "Existem campos em branco!", Toast.LENGTH_LONG).show();
+            if (textImputName.getEditText().getText().toString().isEmpty() ||
+                    textImputEmail.getEditText().getText().toString().isEmpty() ||
+                    textImputPassword.getEditText().getText().toString().isEmpty() ||
+                    textImputRepeatPassword.getEditText().getText().toString().isEmpty()) {
 
-                } else if (!(textImputPassword.getEditText().getText().toString().equals(textImputRepeatPassword.getEditText().getText().toString()))) {
+                Toast.makeText(getApplicationContext(), "Please fill in the required fields", Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(getApplicationContext(), "As senhas não coincidem!", Toast.LENGTH_LONG).show();
+            } else if (!(textImputPassword.getEditText().getText().toString().equals(textImputRepeatPassword.getEditText().getText().toString()))) {
 
-                } else {
+                Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(getApplicationContext(), "Welcome "+textImputName.getEditText().getText().toString()+"!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
-                    finish();
-                }
+            } else {
+
+                firebaseAuth.createUserWithEmailAndPassword(textImputEmail.getEditText().getText().toString(), textImputPassword.getEditText().getText().toString())
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), "Welcome " + textImputName.getEditText().getText().toString() + "!", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
 
